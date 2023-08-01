@@ -31,4 +31,5 @@ model Orden {
   nombre String
   fecha String
   total Float
+  pedido Json
 }

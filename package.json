@@ -12,7 +12,7 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
-    "@prisma/client": "^5.0.0",
+    "@prisma/client": "^3.10.0",
     "axios": "^0.26.1",
     "next": "^12.1.0",
     "react": "^17.0.2",
@@ -26,7 +26,7 @@
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
     "postcss": "^8.4.27",
-    "prisma": "^5.0.0",
+    "prisma": "^3.10.0",
     "tailwindcss": "^3.3.3"
   }
 }
