@@ -5,6 +5,7 @@ import useQuiosco from "../hooks/useQuiosco";
 import ModalProducto from "../components/ModalProducto";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Pasos from "../components/pasos";
 
 const customStyles = {
   content: {
@@ -32,7 +33,9 @@ export default function Layout({ children, pagina }) {
           <Sidebar />
         </aside>
         <main className="md:w-8/12 xl:w-3/4 2xl:w-2/5 h-screen overflow-y-scroll">
-          <div className="mt-10 p-10">{children}</div>
+          <div className="mt-10 p-10">
+            <Pasos/>
+            {children}</div>
         </main>
       </div>
       {modal && (

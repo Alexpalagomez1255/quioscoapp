@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 import axios from "axios";
-import {toast} from "react-toastify"
+import { toast } from "react-toastify";
 
 const QuioscoContext = createContext();
 
@@ -9,7 +9,7 @@ const QuisocoProvider = ({ children }) => {
   const [categoriaActual, setCategoriaActual] = useState({});
   const [producto, setProducto] = useState({});
   const [modal, setModal] = useState(false);
-  const [pedido, setPedido] = useState([])
+  const [pedido, setPedido] = useState([]);
 
   const obtenerCategorias = async () => {
     const { data } = await axios("/api/categorias");
@@ -34,19 +34,32 @@ const QuisocoProvider = ({ children }) => {
   const handleChangeModal = () => {
     setModal(!modal);
   };
-  const handleAgregarPedido = ({categoriaId,imagen,...producto})=>{ 
-    if(pedido.some(productoState =>productoState.id === producto.id)){
+  const handleAgregarPedido = ({ categoriaId, ...producto }) => {
+    if (pedido.some((productoState) => productoState.id === producto.id)) {
       //Actualizar cantidad en el pedido
-      const pedidoActualizado = pedido.map(productoState => productoState.id === producto.id ? producto : productoState)
-      setPedido(pedidoActualizado)
-      toast.success("Guardado Correctamente!!!")
-    }else{
-      setPedido([...pedido,producto])
-      toast.success("Agregado al pedido!!!")
-      
+      const pedidoActualizado = pedido.map((productoState) =>
+        productoState.id === producto.id ? producto : productoState
+      );
+      setPedido(pedidoActualizado);
+      toast.success("Guardado Correctamente!!!");
+    } else {
+      setPedido([...pedido, producto]);
+      toast.success("Agregado al pedido!!!");
     }
-    setModal(false)
-  }
+    setModal(false);
+  };
+
+  const handlerEditarCantidades = (id) => {
+    const productoActualizar = pedido.filter((producto) => producto.id === id);
+    setProducto(productoActualizar[0]);
+    setModal(!modal);
+  };
+
+  const handlerElminarProducto = (id) => {
+    const productoEliminar = pedido.filter((producto) => producto.id !== id);
+    setPedido(productoEliminar)
+  };
+
   return (
     <QuioscoContext.Provider
       value={{
@@ -59,6 +72,8 @@ const QuisocoProvider = ({ children }) => {
         handleChangeModal,
         handleAgregarPedido,
         pedido,
+        handlerEditarCantidades,
+        handlerElminarProducto
       }}
     >
       {children}
